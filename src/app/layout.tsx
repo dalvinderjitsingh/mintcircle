@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import PrivyProvider from "@/components/PrivyProvider";
+import Sidebar from "@/components/Sidebar";
+import Nav from "@/components/Nav";
+import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +19,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} h-screen`}>
+        <PrivyProvider>
+          <Nav />
+          <div className="mt-20 flex">
+            {/* sidebar logic: if loged in then show other wise display none */}
+            <Sidebar />
+            <div className="flex-1">{children}</div>
+          </div>
+        </PrivyProvider>
+      </body>
     </html>
   );
 }
